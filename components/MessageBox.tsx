@@ -1,6 +1,8 @@
+import styles from '../styles/MessageBox.module.css';
+
 const MessageBox = () => {
-    return <div className="message-box">
-        <input type="text" id="message"/>
+    return <div className={styles.container}>
+        <input type="text" id={styles.message}/>
         <button type="button">Send</button>
     </div>
 }
