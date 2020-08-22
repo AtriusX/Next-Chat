@@ -11,19 +11,13 @@ const handler = nextApp.getRequestHandler();
 let port = 3000;
 
 socket.on('connect', socket => {
-    socket.on('token', socket => {
-        console.log(`User connected with socket id ${socket.id}`);
-    });
-    socket.on('disconnect', () => {
-        console.log("User disconnected");
-    });
+    socket.on('token', socket => console.log(`User connected with socket id ${socket.id}`));
+    socket.on('disconnect', () => console.log("User disconnected"));
 });
 
 nextApp.prepare().then(() => {
-  
-    app.get('*', (req, res) => {
-        return handler(req, res);
-    });
+
+    app.get('*', (req, res) => handler(req, res));
 
     server.listen(port, (err) => {
         if (err) throw err;
