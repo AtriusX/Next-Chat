@@ -2,6 +2,7 @@ import { Component } from 'react';
 import { v4 } from 'uuid';
 import  io from 'socket.io-client';
 import MessageBox from './MessageBox';
+import styles from '../styles/ChatView.module.css';
 
 export default class ChatView extends Component {
     state: { id: string };
@@ -30,8 +31,8 @@ export default class ChatView extends Component {
     }
 
     render() {
-        return <div className={"chatbox"}>
-            <div id="messages">
+        return <div>
+            <div id="messages" className={styles.chatbox}>
             </div>
             <MessageBox messagebox={"messages"}/>
         </div>
