@@ -9,9 +9,17 @@ const handler = nextApp.getRequestHandler();
 
 let port = 3000;
 
+const messages = [];
+
 socket.on('connect', socket => {
     socket.on('token', socket => console.log(`User connected with socket id ${socket.id}`));
-    socket.on('message', socket => console.log(`Message received: ${socket.message}`))
+    socket.on('message', data => {
+        console.log(`Message received: ${data.message}`)
+        messages.push({ author: 'Anon', message: data.message });
+        socket.emit('send-message', {
+            author: 'Anon', message: data.message
+        });
+    })
     socket.on('disconnect', () => console.log("User disconnected"));
 });
 
