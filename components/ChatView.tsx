@@ -31,10 +31,9 @@ export default class ChatView extends Component {
 
     render() {
         return <div className={"chatbox"}>
-            <div className="messages">
-                {this.state.id}
+            <div id="messages">
             </div>
-            <MessageBox />
+            <MessageBox messagebox={"messages"}/>
         </div>
     }
 }

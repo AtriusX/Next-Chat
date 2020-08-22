@@ -2,7 +2,6 @@ const app = require('express')();
 const server = require('http').Server(app);
 const socket = require('socket.io')(server);
 const next = require('next');
-const uuid = require('uuid');
 
 const dev = process.env.NODE_ENV !== 'production'
 const nextApp = next({ dev });
@@ -12,6 +11,7 @@ let port = 3000;
 
 socket.on('connect', socket => {
     socket.on('token', socket => console.log(`User connected with socket id ${socket.id}`));
+    socket.on('message', socket => console.log(`Message received: ${socket.message}`))
     socket.on('disconnect', () => console.log("User disconnected"));
 });
 
