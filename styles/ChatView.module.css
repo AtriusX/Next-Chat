@@ -1,0 +1,7 @@
+.chatbox {
+    position: absolute;
+    top: 0px;
+    bottom: 40px;
+    width: 100%;
+    overflow-y: scroll;
+}

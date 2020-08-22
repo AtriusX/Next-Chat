@@ -1,0 +1,12 @@
+.container {
+    position: relative;
+    padding: 10px;
+    background-color: gray;
+    margin: 10px auto;
+    color: white;
+    width: 99%;
+}
+
+.container b {
+    color: lightskyblue;
+}

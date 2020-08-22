@@ -1,4 +1,7 @@
 .container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
     border: 1px solid black;
     padding: 5px;
 }
@@ -12,4 +15,9 @@
 .container button {
     width: 10%;
     height: 30px;
+}
+
+.container p {
+    width: 100%;
+    text-overflow: ellipsis;
 }
