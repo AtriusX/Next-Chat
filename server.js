@@ -2,6 +2,7 @@ const app = require('express')();
 const server = require('http').Server(app);
 const socket = require('socket.io')(server);
 const next = require('next');
+const uuid = require('uuid');
 
 const dev = process.env.NODE_ENV !== 'production'
 const nextApp = next({ dev });
@@ -10,12 +11,11 @@ const handler = nextApp.getRequestHandler();
 let port = 3000;
 
 socket.on('connect', socket => {
-    console.log(`User connected on ip ${socket.request.connection.remoteAddress}`);
+    socket.on('token', socket => {
+        console.log(`User connected with socket id ${socket.id}`);
+    });
     socket.on('disconnect', () => {
         console.log("User disconnected");
-    });
-    socket.emit('now', {
-        message: "Epic gamer moment!"
     });
 });
 
