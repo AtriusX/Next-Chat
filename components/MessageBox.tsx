@@ -8,22 +8,23 @@ type Props = {
     messagebox: string
 }
 
-export default class MessageBox extends Component<Props, { messageBox: HTMLElement }> {
+export default class MessageBox extends Component<Props> {
     private socket;
-    state: { messageBox: HTMLElement, messages: any }
+    state: { messageBox: HTMLElement }
 
     componentDidMount() {
         this.socket = io();
-        this.setState({
-            messageBox: document.getElementById(this.props.messagebox)
-        })
-        this.socket.on('send-message', data => {
-            let temp = document.createElement("div");    
-            let box = this.state.messageBox;
-            ReactDOM.render(<Message author={data.author} message={data.message} />, temp)
-            box.appendChild(temp);
-            box.scrollTop = box.scrollHeight - box.clientHeight;
+        
+        this.socket.on('load', socket => {
+            console.log(socket);
+            this.setState({
+                messageBox: document.getElementById(this.props.messagebox), 
+            });
+            for (let msg of socket.messages) {
+                this.createMessage(msg);
+            }
         });
+        this.socket.on('send-message', data => this.createMessage(data));
     }
 
     render() {
@@ -40,9 +41,17 @@ export default class MessageBox extends Component<Props, { messageBox: HTMLEleme
         let box = (document.getElementById(styles.message) as HTMLInputElement)
         if (box.value) {
             this.socket.emit('message', {
-                message: box.value
+                author: localStorage.getItem("id").split("-")[0], message: box.value
             });
             box.value = "";
         }
+    }
+
+    private createMessage = (data) => {
+        let temp = document.createElement("div");    
+        let box = this.state.messageBox;
+        ReactDOM.render(<Message author={data.author} message={data.message} />, temp)
+        box.appendChild(temp);
+        box.scrollTop = box.scrollHeight - box.clientHeight;
     }
 }
